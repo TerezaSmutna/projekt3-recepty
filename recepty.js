@@ -141,4 +141,17 @@ for (let i = 0; i < recepty.length; i++) {
   recept.appendChild(receptInfo); 
   seznam.appendChild(recept);
   kontejner.appendChild(seznam);
+
+  recept.setAttribute('data-recept-detail', i);
+  recept.addEventListener('click', zobrazRecept);
+  //recept.onclick = zobrazRecept;
+}
+
+function zobrazRecept(event) {
+  let vybranyRecept = event.target;
+  let receptDetail = vybranyRecept.dataset.receptDetail;
+  alert((recepty[receptDetail].nadpis));
+  
+  /**let receptDetailInfo = document.querySelector('.recept-detail-info');
+  receptDetailInfo.textContent = recepty[receptDetail].nadpis;**/
 }
