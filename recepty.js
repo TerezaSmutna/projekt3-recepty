@@ -51,7 +51,7 @@ const recepty = [
     nadpis: 'Kuřecí salát',
     popis: 'Jí hoře ocelovými vozíkem. Esli kotě napadne od ferdo, no pás uznat pustý. Prý chlapče sáhla tě koleno jež uvádí a posunující.',
     hodnoceni: 4.7,
-    kategorie: 'Hlavní jidlo',
+    kategorie: 'Hlavní jídlo',
     stitek: 'hlavniJidlo',
     img: 'https://images.pexels.com/photos/33406/pexels-photo.jpg?auto=compress&cs=tinysrgb&h=650&w=940'
   },
@@ -59,7 +59,7 @@ const recepty = [
     nadpis: 'Sýrová pizza',
     popis: 'Jí hoře ocelovými vozíkem. Esli kotě napadne od ferdo, no pás uznat pustý. Prý chlapče sáhla tě koleno jež uvádí a posunující.',
     hodnoceni: 4.7,
-    kategorie: 'Hlavní jidlo',
+    kategorie: 'Hlavní jídlo',
     stitek: 'hlavniJidlo',
     img: 'https://images.unsplash.com/photo-1513104890138-7c749659a591?ixlib=rb-0.3.5&s=8695cc99c49c956556f7411faf6df8b0&auto=format&fit=crop&w=1350&q=80'
   },
@@ -67,7 +67,7 @@ const recepty = [
     nadpis: 'Kuřecí roláda',
     popis: 'Jí hoře ocelovými vozíkem. Esli kotě napadne od ferdo, no pás uznat pustý. Prý chlapče sáhla tě koleno jež uvádí a posunující.',
     hodnoceni: 4.6,
-    kategorie: 'Hlavní jidlo',
+    kategorie: 'Hlavní jídlo',
     stitek: 'hlavniJidlo',
     img: 'https://images.unsplash.com/photo-1517609948086-6a03114ae1af?ixlib=rb-0.3.5&ixid=eyJhcHBfaWQiOjEyMDd9&s=24e11e05a26a3b992c8469426a628a90&auto=format&fit=crop&w=675&q=80'
   },
@@ -83,7 +83,7 @@ const recepty = [
     nadpis: 'Hovězí steak',
     popis: 'Jí hoře ocelovými vozíkem. Esli kotě napadne od ferdo, no pás uznat pustý. Prý chlapče sáhla tě koleno jež uvádí a posunující.',
     hodnoceni: 4.7,
-    kategorie: 'Hlavní jidlo',
+    kategorie: 'Hlavní jídlo',
     stitek: 'hlavniJidlo',
     img: 'https://images.pexels.com/photos/361184/asparagus-steak-veal-steak-veal-361184.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260'
   },
@@ -99,7 +99,7 @@ const recepty = [
     nadpis: 'Ceasar salát',
     popis: 'Jí hoře ocelovými vozíkem. Esli kotě napadne od ferdo, no pás uznat pustý. Prý chlapče sáhla tě koleno jež uvádí a posunující.',
     hodnoceni: 3.9,
-    kategorie: 'Hlavní jidlo',
+    kategorie: 'Hlavní jídlo',
     stitek: 'hlavniJidlo',
     img: 'https://images.unsplash.com/photo-1512852939750-1305098529bf?ixlib=rb-0.3.5&ixid=eyJhcHBfaWQiOjEyMDd9&s=a5832df503143f0eb527593cd0c5abe6&auto=format&fit=crop&w=1350&q=80'
   },
@@ -115,7 +115,7 @@ const recepty = [
     nadpis: 'Vegetariánská pizza',
     popis: 'Jí hoře ocelovými vozíkem. Esli kotě napadne od ferdo, no pás uznat pustý. Prý chlapče sáhla tě koleno jež uvádí a posunující.',
     hodnoceni: 4.7,
-    kategorie: 'Hlavní jidlo',
+    kategorie: 'Hlavní jídlo',
     stitek: 'hlavniJidlo',
     img: 'https://images.unsplash.com/photo-1516183483970-cedfa98169fa?ixlib=rb-0.3.5&ixid=eyJhcHBfaWQiOjEyMDd9&s=28a8ffb099b40dc89c12cec6a7f0a68a&auto=format&fit=crop&w=1350&q=80'
   },
@@ -123,7 +123,7 @@ const recepty = [
     nadpis: 'Křupavé kuře',
     popis: 'Jí hoře ocelovými vozíkem. Esli kotě napadne od ferdo, no pás uznat pustý. Prý chlapče sáhla tě koleno jež uvádí a posunující.',
     hodnoceni: 4.3,
-    kategorie: 'Hlavní jidlo',
+    kategorie: 'Hlavní jídlo',
     stitek: 'hlavniJidlo',
     img: 'https://images.unsplash.com/photo-1516684669134-de6f7c473a2a?ixlib=rb-0.3.5&ixid=eyJhcHBfaWQiOjEyMDd9&s=353c1f4206a931db97274e65329b85d8&auto=format&fit=crop&w=634&q=80'
   },
@@ -165,6 +165,13 @@ for (let i = 0; i < recepty.length; i++) {
 
 function zobrazRecept(event) {
 
+  if (novyRecept != 0) {
+    const element = document.querySelector('.recept-detail');
+    element.remove();
+  } else {
+    novyRecept = novyRecept + 1;
+  }
+
   let vybranyRecept = event.target;
   let receptIndex = vybranyRecept.dataset.receptIndex;
 
@@ -186,19 +193,6 @@ function zobrazRecept(event) {
   receptPopis.id = 'recept-popis';
   let hlavicka = document.createElement('header');
 
-  if (novyRecept != 0) {
-    const element = document.querySelector('.recept-detail');
-    element.remove();
-  } else {
-    novyRecept = novyRecept + 1;
-  }
-
-  receptFoto.src = recepty[receptIndex].img;
-  receptKategorie.textContent = recepty[receptIndex].kategorie;
-  receptHodnoceni.textContent = recepty[receptIndex].hodnoceni;
-  receptNazev.textContent = recepty[receptIndex].nadpis;
-  receptPopis.textContent = recepty[receptIndex].popis;
-
   receptDetailObrazek.appendChild(receptFoto);
   receptDetail.appendChild(receptDetailObrazek);
   hlavicka.appendChild(receptKategorie);
@@ -207,5 +201,48 @@ function zobrazRecept(event) {
   receptDetailInfo.appendChild(receptNazev);
   receptDetailInfo.appendChild(receptPopis);
   receptDetail.appendChild(receptDetailInfo);
-  kontejner.appendChild(receptDetail);  
+  kontejner.appendChild(receptDetail);
+
+  receptFoto.src = recepty[receptIndex].img;
+  receptKategorie.textContent = recepty[receptIndex].kategorie;
+  receptHodnoceni.textContent = recepty[receptIndex].hodnoceni;
+  receptNazev.textContent = recepty[receptIndex].nadpis;
+  receptPopis.textContent = recepty[receptIndex].popis;
+
+  localStorage.ulozenyRecept = JSON.stringify(recepty[receptIndex]);
+  let ulozenyRecept = localStorage.ulozenyRecept;
+  //receptIndex == ulozenyRecept;
 }
+
+function nactiRecept() {
+  let ulozenyRecept = localStorage.ulozenyRecept;
+  if (ulozenyRecept === null || ulozenyRecept === undefined) {
+    return;
+  } else {
+    JSON.parse(ulozenyRecept);
+    console.log(ulozenyRecept);
+    //zobrazRecept();
+  }
+}
+
+function vyberKategorii() {
+  let schovaneReceptyId = [];
+  let kategorie = document.getElementById('kategorie').value;
+  for (let i = 0; i < recepty.length; i++) {
+    if (kategorie === '') {
+      schovaneReceptyId.push(false);
+    } else if (kategorie != recepty[i].kategorie) {
+      schovaneReceptyId.push(true);
+    } else {
+      schovaneReceptyId.push(false);
+    }
+  }
+  const receptyKategorie = document.querySelectorAll('.recept');
+  for (let i = 0; i < receptyKategorie.length; i++) {
+    if (schovaneReceptyId[i]) {
+      receptyKategorie[i].style.display = 'none';
+    } else {
+      receptyKategorie[i].style.display = 'flex';
+    }
+  }
+} 
