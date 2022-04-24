@@ -161,10 +161,10 @@ for (let i = 0; i < recepty.length; i++) {
 
   recept.setAttribute('data-recept-index', i);
   recept.addEventListener('click', zobrazRecept);
+  recept.setAttribute('data-hodnoceni', recepty[i].hodnoceni);
 }
 
 function zobrazRecept(event) {
-
   if (novyRecept != 0) {
     const element = document.querySelector('.recept-detail');
     element.remove();
@@ -211,7 +211,6 @@ function zobrazRecept(event) {
 
   localStorage.ulozenyRecept = JSON.stringify(recepty[receptIndex]);
   let ulozenyRecept = localStorage.ulozenyRecept;
-  //receptIndex == ulozenyRecept;
 }
 
 function nactiRecept() {
@@ -221,7 +220,22 @@ function nactiRecept() {
   } else {
     JSON.parse(ulozenyRecept);
     console.log(ulozenyRecept);
-    //zobrazRecept();
+
+    /**receptDetailObrazek.appendChild(receptFoto);
+    receptDetail.appendChild(receptDetailObrazek);
+    hlavicka.appendChild(receptKategorie);
+    hlavicka.appendChild(receptHodnoceni);
+    receptDetailInfo.appendChild(hlavicka);
+    receptDetailInfo.appendChild(receptNazev);
+    receptDetailInfo.appendChild(receptPopis);
+    receptDetail.appendChild(receptDetailInfo);
+    kontejner.appendChild(receptDetail);
+
+    receptFoto.src = ulozenyRecept.img;
+    receptKategorie.textContent = ulozenyRecept.kategorie;
+    receptHodnoceni.textContent = ulozenyRecept.hodnoceni;
+    receptNazev.textContent = ulozenyRecept.nadpis;
+    receptPopis.textContent = ulozenyRecept.popis;**/
   }
 }
 
@@ -245,4 +259,29 @@ function vyberKategorii() {
       receptyKategorie[i].style.display = 'flex';
     }
   }
-} 
+}
+
+function comparator(a, b) {
+  if (a.dataset.hodnoceni < b.dataset.hodnoceni)
+    return -1;
+  if (a.dataset.hodnoceni > b.dataset.hodnoceni)
+    return 1;
+  return 0;
+}
+
+function serad() {
+  let razeni = document.getElementById('razeni').value;
+
+  let indexes = document.querySelectorAll("[data-hodnoceni]");
+  let indexesArray = Array.from(indexes);
+  let sorted = indexesArray.sort(comparator);
+
+  if (razeni === '2') {
+    sorted.forEach(element =>
+      document.querySelector(".recepty").appendChild(element));
+  } else if (razeni === '1') {
+    sorted.reverse();
+    sorted.forEach(element =>
+      document.querySelector(".recepty").appendChild(element));
+  }
+}
