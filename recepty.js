@@ -285,3 +285,34 @@ function serad() {
       document.querySelector(".recepty").appendChild(element));
   }
 }
+
+function hledej() {
+  let hledani = document.querySelector('#hledat').value;
+  const receptyHledej = document.querySelectorAll('.recept');
+  let stejnyRecept = [];
+
+  for (let i = 0; i < recepty.length; i++) {
+
+    //recepty.filter(shoda => shoda.hledani.toLowerCase().includes(recepty[i].toLowerCase()))
+
+    recepty.filter(function(x) { 
+      return x.hledani.indexOf(recepty[i]) > -1;
+  })
+
+    if (hledani === '') {
+      stejnyRecept.push(true);
+    } else if (hledani === recepty[i].nadpis) {
+      stejnyRecept.push(true);
+    } else {
+      stejnyRecept.push(false);
+    }
+  }
+
+  for (let i = 0; i < receptyHledej.length; i++) {
+    if (stejnyRecept[i]) {
+      receptyHledej[i].style.display = 'flex';
+    } else {
+      receptyHledej[i].style.display = 'none';
+    }
+  }
+}
