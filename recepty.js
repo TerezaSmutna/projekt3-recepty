@@ -160,11 +160,11 @@ for (let i = 0; i < recepty.length; i++) {
   kontejner.appendChild(seznam);
 
   recept.setAttribute('data-recept-index', i);
-  recept.addEventListener('click', zobrazRecept);
+  recept.addEventListener('click', function () { zobrazRecept() });
   recept.setAttribute('data-hodnoceni', recepty[i].hodnoceni);
 }
 
-function zobrazRecept(event) {
+function zobrazRecept() {
   if (novyRecept != 0) {
     const element = document.querySelector('.recept-detail');
     element.remove();
@@ -172,8 +172,9 @@ function zobrazRecept(event) {
     novyRecept = novyRecept + 1;
   }
 
-  let vybranyRecept = event.target;
-  let receptIndex = vybranyRecept.dataset.receptIndex;
+  const recept = document.createElement('div');
+  recept.classList.add('recept');
+  let receptIndex = recept.dataset.receptIndex;
 
   let receptDetail = document.createElement('div');
   receptDetail.classList.add('recept-detail');
@@ -219,9 +220,28 @@ function nactiRecept() {
     return;
   } else {
     JSON.parse(ulozenyRecept);
-    console.log(ulozenyRecept);
+    console.log(JSON.parse(ulozenyRecept));
+    console.log(JSON.parse(ulozenyRecept).nadpis);
 
-    /**receptDetailObrazek.appendChild(receptFoto);
+    let receptDetail = document.createElement('div');
+    receptDetail.classList.add('recept-detail');
+    let receptDetailObrazek = document.createElement('div');
+    receptDetailObrazek.classList.add('recept-detail-obrazek');
+    let receptDetailInfo = document.createElement('div');
+    receptDetailInfo.classList.add('recept-detail-info');
+    let receptFoto = document.createElement('img');
+    receptFoto.id = 'recept-foto';
+    let receptKategorie = document.createElement('div');
+    receptKategorie.classList.add('recept-kategorie');
+    let receptHodnoceni = document.createElement('div');
+    receptHodnoceni.classList.add('recept-hodnoceni');
+    let receptNazev = document.createElement('h1');
+    receptNazev.id = 'recept-nazev';
+    let receptPopis = document.createElement('p');
+    receptPopis.id = 'recept-popis';
+    let hlavicka = document.createElement('header');
+
+    receptDetailObrazek.appendChild(receptFoto);
     receptDetail.appendChild(receptDetailObrazek);
     hlavicka.appendChild(receptKategorie);
     hlavicka.appendChild(receptHodnoceni);
@@ -231,11 +251,11 @@ function nactiRecept() {
     receptDetail.appendChild(receptDetailInfo);
     kontejner.appendChild(receptDetail);
 
-    receptFoto.src = ulozenyRecept.img;
-    receptKategorie.textContent = ulozenyRecept.kategorie;
-    receptHodnoceni.textContent = ulozenyRecept.hodnoceni;
-    receptNazev.textContent = ulozenyRecept.nadpis;
-    receptPopis.textContent = ulozenyRecept.popis;**/
+    receptFoto.src = JSON.parse(ulozenyRecept).img;
+    receptKategorie.textContent = JSON.parse(ulozenyRecept).kategorie;
+    receptHodnoceni.textContent = JSON.parse(ulozenyRecept).hodnoceni;
+    receptNazev.textContent = JSON.parse(ulozenyRecept).nadpis;
+    receptPopis.textContent = JSON.parse(ulozenyRecept).popis;
   }
 }
 
@@ -283,33 +303,18 @@ function serad() {
     sorted.reverse();
     sorted.forEach(element =>
       document.querySelector(".recepty").appendChild(element));
+
   }
 }
 
 function hledej() {
   let hledani = document.querySelector('#hledat').value;
   const receptyHledej = document.querySelectorAll('.recept');
-  let stejnyRecept = [];
+  recepty_matched = recepty.filter(element => element.nadpis.toLowerCase().includes(hledani.toLowerCase()))
+  recepty_indexes_show = recepty_matched.map(e => recepty.indexOf(e));
 
   for (let i = 0; i < recepty.length; i++) {
-
-    //recepty.filter(shoda => shoda.hledani.toLowerCase().includes(recepty[i].toLowerCase()))
-
-    recepty.filter(function(x) { 
-      return x.hledani.indexOf(recepty[i]) > -1;
-  })
-
-    if (hledani === '') {
-      stejnyRecept.push(true);
-    } else if (hledani === recepty[i].nadpis) {
-      stejnyRecept.push(true);
-    } else {
-      stejnyRecept.push(false);
-    }
-  }
-
-  for (let i = 0; i < receptyHledej.length; i++) {
-    if (stejnyRecept[i]) {
+    if (recepty_indexes_show.includes(i)) {
       receptyHledej[i].style.display = 'flex';
     } else {
       receptyHledej[i].style.display = 'none';
