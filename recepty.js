@@ -160,11 +160,19 @@ for (let i = 0; i < recepty.length; i++) {
   kontejner.appendChild(seznam);
 
   recept.setAttribute('data-recept-index', i);
-  recept.addEventListener('click', function () { zobrazRecept() });
+  receptObrazek.setAttribute('data-recept-index', i);
+  receptInfo.setAttribute('data-recept-index', i);
+  obrazek.setAttribute('data-recept-index', i);
+  jmenoReceptu.setAttribute('data-recept-index', i);
+  recept.addEventListener('click', zobrazRecept);
+  receptObrazek.addEventListener('click', zobrazRecept);
+  receptInfo.addEventListener('click', zobrazRecept);
+  obrazek.addEventListener('click', zobrazRecept);
+  jmenoReceptu.addEventListener('click', zobrazRecept);
   recept.setAttribute('data-hodnoceni', recepty[i].hodnoceni);
 }
 
-function zobrazRecept() {
+function zobrazRecept(event) {
   if (novyRecept != 0) {
     const element = document.querySelector('.recept-detail');
     element.remove();
@@ -174,7 +182,9 @@ function zobrazRecept() {
 
   const recept = document.createElement('div');
   recept.classList.add('recept');
-  let receptIndex = recept.dataset.receptIndex;
+
+  let vyslednyRecept = event.target;
+  let receptIndex = vyslednyRecept.dataset.receptIndex;
 
   let receptDetail = document.createElement('div');
   receptDetail.classList.add('recept-detail');
@@ -321,3 +331,6 @@ function hledej() {
     }
   }
 }
+
+let logo = document.querySelector('.logo');
+logo.addEventListener('click', reload());

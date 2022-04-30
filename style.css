@@ -132,6 +132,7 @@ h1 {
     background-color: #efefef;
     background-image: linear-gradient(120deg, #fdfbfb 0%, #ebedee 100%);
     overflow: scroll;
+    height: 700px;
 }
 
 .recept {
@@ -202,7 +203,7 @@ h1 {
     position: relative;
 }
 
-/*
+
 .recept-detail-obrazek::after {
     content: '';
     position: absolute;
@@ -213,7 +214,7 @@ h1 {
     top: 0;
     bottom: 0;
 }
-*/
+
 
 .recept-detail-obrazek img {
     width: 100%;
@@ -247,4 +248,9 @@ h1 {
 
 .recept-detail h1 {
     color: #feada6;
+}
+
+.logo:hover {
+  transform: translateY(-2px);
+  box-shadow: 1px 3px 8px rgba(0, 0, 0, 0.12);
 }
