@@ -1,72 +1,63 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
 
-  <link href="https://fonts.googleapis.com/css?family=Raleway:300,400,700&amp;subset=latin-ext" rel="stylesheet">
-  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.12/css/all.css"
-    integrity="sha384-G0fIWCsCzJIMAVNQPfjH08cyYaUtMwjJwqiRKxxE/rx96Uroj1BtIQ6MLJuheaO9" crossorigin="anonymous">
+    <link href="https://fonts.googleapis.com/css?family=Raleway:300,400,700&amp;subset=latin-ext" rel="stylesheet">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.12/css/all.css" integrity="sha384-G0fIWCsCzJIMAVNQPfjH08cyYaUtMwjJwqiRKxxE/rx96Uroj1BtIQ6MLJuheaO9" crossorigin="anonymous">
 
-  <title>Recepty</title>
+    <title>Recepty</title>
 
-  <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="style.css">
 </head>
+<body
+onload="nactiRecept()">
 
-<body onload="nactiRecept()">
+    <div class="kontejner">
 
-  <div class="kontejner">
+        <header class="hlavicka">
+            <div class="logo">
+                <img src="images/recepty-logo.svg" alt="Recepty logo">
+            </div>
 
-    <header class="hlavicka">
-      <div class="logo">
-        <img src="images/recepty-logo.svg" alt="Recepty logo">
-      </div>
+            <div class="hledani" >
+                <label for="hledat">Hledat</label>
+                <div class="hledani-skupina">
+                    <input oninput="hledej()" type="text" id="hledat" placeholder="Název receptu">
+                    <button onclick="hledej()">Hledat</button>
+                </div>
+            </div>
 
-      <div class="hledani">
-        <label for="hledat">Hledat</label>
-        <div class="hledani-skupina">
-          <input oninput="hledej()" type="text" id="hledat" placeholder="Název receptu">
-          <button onclick="hledej()">Hledat</button>
+            <div class="kategorie"> 
+                <label for="kategorie">Kategorie</label>
+                <select id="kategorie" onchange="vyberKategorii()">
+                    <option value=""></option>
+                    <option>Snídaně</option>
+                    <option>Hlavní jídlo</option>
+                    <option>Dezert</option>
+                </select>       
+            </div>
+
+            <div class="razeni" onchange="serad()">
+                <label for="razeni">Seřadit</label>
+                <select id="razeni">
+                    <option value=""></option>
+                    <option value="1">Od nejlepších</option>
+                    <option value="2">Od nejhorších</option>
+                </select>
+            </div>
+        </header>
+
+
+        <div id="recepty" class="recepty">
         </div>
-      </div>
-
-      <div class="kategorie">
-        <label for="kategorie">Kategorie</label>
-        <select id="kategorie" onchange="vyberKategorii()">
-          <option value=""></option>
-          <option>Snídaně</option>
-          <option>Hlavní jídlo</option>
-          <option>Dezert</option>
-        </select>
-      </div>
-
-      <div class="razeni" onchange="serad()">
-        <label for="razeni">Seřadit</label>
-        <select id="razeni">
-          <option value=""></option>
-          <option value="1">Od nejlepších</option>
-          <option value="2">Od nejhorších</option>
-        </select>
-      </div>
-    </header>
-
-
-    <div id="recepty" class="recepty">
-    </div>
-    </span>
-  </div>
-  </header>
-  </h1>
-  </p>
-  </div>
-  </div>
+     
   </div>
 
   <script src="recepty.js"></script>
   <script src="app.js"></script>
 
 </body>
-
 </html>

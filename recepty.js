@@ -160,31 +160,17 @@ for (let i = 0; i < recepty.length; i++) {
   kontejner.appendChild(seznam);
 
   recept.setAttribute('data-recept-index', i);
-  receptObrazek.setAttribute('data-recept-index', i);
-  receptInfo.setAttribute('data-recept-index', i);
-  obrazek.setAttribute('data-recept-index', i);
-  jmenoReceptu.setAttribute('data-recept-index', i);
-  recept.addEventListener('click', zobrazRecept);
-  receptObrazek.addEventListener('click', zobrazRecept);
-  receptInfo.addEventListener('click', zobrazRecept);
-  obrazek.addEventListener('click', zobrazRecept);
-  jmenoReceptu.addEventListener('click', zobrazRecept);
+  recept.addEventListener('click', function() {zobrazRecept(i)});
   recept.setAttribute('data-hodnoceni', recepty[i].hodnoceni);
 }
 
-function zobrazRecept(event) {
+function zobrazRecept(i) {
   if (novyRecept != 0) {
     const element = document.querySelector('.recept-detail');
     element.remove();
   } else {
     novyRecept = novyRecept + 1;
   }
-
-  const recept = document.createElement('div');
-  recept.classList.add('recept');
-
-  let vyslednyRecept = event.target;
-  let receptIndex = vyslednyRecept.dataset.receptIndex;
 
   let receptDetail = document.createElement('div');
   receptDetail.classList.add('recept-detail');
@@ -214,13 +200,13 @@ function zobrazRecept(event) {
   receptDetail.appendChild(receptDetailInfo);
   kontejner.appendChild(receptDetail);
 
-  receptFoto.src = recepty[receptIndex].img;
-  receptKategorie.textContent = recepty[receptIndex].kategorie;
-  receptHodnoceni.textContent = recepty[receptIndex].hodnoceni;
-  receptNazev.textContent = recepty[receptIndex].nadpis;
-  receptPopis.textContent = recepty[receptIndex].popis;
+  receptFoto.src = recepty[i].img;
+  receptKategorie.textContent = recepty[i].kategorie;
+  receptHodnoceni.textContent = recepty[i].hodnoceni;
+  receptNazev.textContent = recepty[i].nadpis;
+  receptPopis.textContent = recepty[i].popis;
 
-  localStorage.ulozenyRecept = JSON.stringify(recepty[receptIndex]);
+  localStorage.ulozenyRecept = JSON.stringify(recepty[i]);
   let ulozenyRecept = localStorage.ulozenyRecept;
 }
 
@@ -332,5 +318,5 @@ function hledej() {
   }
 }
 
-let logo = document.querySelector('.logo');
-logo.addEventListener('click', reload());
+/**let logo = document.querySelector('.logo');
+logo.addEventListener('click', reload());**/
