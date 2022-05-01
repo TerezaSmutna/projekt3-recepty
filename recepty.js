@@ -159,13 +159,13 @@ for (let i = 0; i < recepty.length; i++) {
   kontejner.appendChild(seznam);
 
   recept.setAttribute('data-recept-index', i);
-  recept.addEventListener('click', function () {zobrazRecept(i)});
+  recept.addEventListener('click', function () { zobrazRecept(i) });
   recept.setAttribute('data-hodnoceni', recepty[i].hodnoceni);
 }
 
 function zobrazRecept(receptIndex) {
-    const element = document.querySelector('.recept-detail');
-    element.remove();
+  const element = document.querySelector('.recept-detail');
+  element.remove();
 
   let receptDetail = document.createElement('div');
   receptDetail.classList.add('recept-detail');
@@ -308,4 +308,11 @@ function hledej() {
       receptyHledej[i].style.display = 'none';
     }
   }
+}
+
+let logo = document.querySelector('.logo');
+logo.addEventListener('click', obnov);
+
+function obnov() {
+  location.reload();
 }
