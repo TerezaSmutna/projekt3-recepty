@@ -130,7 +130,6 @@ const recepty = [
 ]
 
 let kontejner = document.querySelector('.kontejner');
-let novyRecept = 0;
 
 for (let i = 0; i < recepty.length; i++) {
   const seznam = document.querySelector('.recepty');
@@ -160,17 +159,13 @@ for (let i = 0; i < recepty.length; i++) {
   kontejner.appendChild(seznam);
 
   recept.setAttribute('data-recept-index', i);
-  recept.addEventListener('click', function() {zobrazRecept(i)});
+  recept.addEventListener('click', function () {zobrazRecept(i)});
   recept.setAttribute('data-hodnoceni', recepty[i].hodnoceni);
 }
 
-function zobrazRecept(i) {
-  if (novyRecept != 0) {
+function zobrazRecept(receptIndex) {
     const element = document.querySelector('.recept-detail');
     element.remove();
-  } else {
-    novyRecept = novyRecept + 1;
-  }
 
   let receptDetail = document.createElement('div');
   receptDetail.classList.add('recept-detail');
@@ -200,13 +195,13 @@ function zobrazRecept(i) {
   receptDetail.appendChild(receptDetailInfo);
   kontejner.appendChild(receptDetail);
 
-  receptFoto.src = recepty[i].img;
-  receptKategorie.textContent = recepty[i].kategorie;
-  receptHodnoceni.textContent = recepty[i].hodnoceni;
-  receptNazev.textContent = recepty[i].nadpis;
-  receptPopis.textContent = recepty[i].popis;
+  receptFoto.src = recepty[receptIndex].img;
+  receptKategorie.textContent = recepty[receptIndex].kategorie;
+  receptHodnoceni.textContent = recepty[receptIndex].hodnoceni;
+  receptNazev.textContent = recepty[receptIndex].nadpis;
+  receptPopis.textContent = recepty[receptIndex].popis;
 
-  localStorage.ulozenyRecept = JSON.stringify(recepty[i]);
+  localStorage.ulozenyRecept = JSON.stringify(recepty[receptIndex]);
   let ulozenyRecept = localStorage.ulozenyRecept;
 }
 
@@ -216,8 +211,6 @@ function nactiRecept() {
     return;
   } else {
     JSON.parse(ulozenyRecept);
-    console.log(JSON.parse(ulozenyRecept));
-    console.log(JSON.parse(ulozenyRecept).nadpis);
 
     let receptDetail = document.createElement('div');
     receptDetail.classList.add('recept-detail');
@@ -299,14 +292,13 @@ function serad() {
     sorted.reverse();
     sorted.forEach(element =>
       document.querySelector(".recepty").appendChild(element));
-
   }
 }
 
 function hledej() {
   let hledani = document.querySelector('#hledat').value;
   const receptyHledej = document.querySelectorAll('.recept');
-  recepty_matched = recepty.filter(element => element.nadpis.toLowerCase().includes(hledani.toLowerCase()))
+  recepty_matched = recepty.filter(element => element.nadpis.toLowerCase().includes(hledani.toLowerCase()));
   recepty_indexes_show = recepty_matched.map(e => recepty.indexOf(e));
 
   for (let i = 0; i < recepty.length; i++) {
@@ -317,6 +309,3 @@ function hledej() {
     }
   }
 }
-
-/**let logo = document.querySelector('.logo');
-logo.addEventListener('click', reload());**/
